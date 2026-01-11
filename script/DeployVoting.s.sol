@@ -20,8 +20,12 @@ contract DeployVoting is Script {
      function run() external returns (Voting) {
 
         vm.startBroadcast();
-        uint256 startTime = block.timestamp + 600;
-        uint256 endTime = block.timestamp + 7200;
+        // Start in 1 minute (60 seconds)
+        uint256 startTime = block.timestamp + 60;
+        
+        // Last for 2 months (60 days = 60 * 24 * 60 * 60 seconds)
+        uint256 endTime = block.timestamp + 60 + (60 * 24 * 60 * 60);
+        
         Voting voting = new Voting(startTime,endTime);
         vm.stopBroadcast();
         return voting;
